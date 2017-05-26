@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ProgressDialog loader;
 
+    LinearLayout imageUploadContainer, responseContainer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +55,11 @@ public class MainActivity extends AppCompatActivity {
         selectBtn = (AppCompatImageButton) findViewById(R.id.select_btn);
 
         loader = new ProgressDialog(MainActivity.this);
+
+        imageUploadContainer = (LinearLayout) findViewById(R.id.img_upload_container);
+        responseContainer = (LinearLayout) findViewById(R.id.response_container);
+
+        responseContainer.setVisibility(View.GONE);
 
         cameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 if (imageBitmap != null)
                     upload_image(imageBitmap);
                 else
-                    Toast.makeText(MainActivity.this, "Capture an image first!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, R.string.no_image_warning_msg, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -81,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
     private void upload_image(final Bitmap imageBitmap) {
 
 //        Toast.makeText(this, "Uploading...", Toast.LENGTH_LONG).show();
-        loader.setMessage("Uploading, Please wait...");
+        loader.setMessage(getString(R.string.upload_progress_msg));
         loader.show();
 
 
@@ -104,7 +112,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         Log.i(TAG, "onErrorResponse: " + volleyError.toString());
-                        Toast.makeText(MainActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, R.string.something_went_wrong_msg, Toast.LENGTH_SHORT)
+                                .show();
                     }
                 }) {
             @Override
@@ -147,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
         intent.setAction(Intent.ACTION_GET_CONTENT);
 
         // Always show the chooser (if there are multiple options available)
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+        startActivityForResult(Intent.createChooser(intent, getString(R.string.pic_chooser_msg)), PICK_IMAGE_REQUEST);
     }
 
 
