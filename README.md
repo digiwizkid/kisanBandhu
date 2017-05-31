@@ -15,3 +15,4 @@ Android app counterpart of https://github.com/vivekaditya/LeafImageClassifier
 
 * Analysis History
 * Share result
+* localization
