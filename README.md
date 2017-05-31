@@ -10,3 +10,8 @@ Android app counterpart of https://github.com/vivekaditya/LeafImageClassifier
 * Check preview.
 * Upload to server for processing.
 * Get the result.
+
+### Upcoming Features
+
+* Analysis History
+* Share result
